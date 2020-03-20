@@ -5,10 +5,20 @@ module.exports = {
   add
 }
 
-function get() {
-
+function get(id) {
+  if (id) {
+    return db('resources')
+      .where({ id })
+      .first()
+  } else {
+    return db('resources')
+  }
 }
 
-function add() {
-
+function add(resource) {
+  return db('resources')
+    .insert(resource)
+    .then(ids => {
+      return get(ids[0])
+    })
 }

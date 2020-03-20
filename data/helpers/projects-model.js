@@ -5,10 +5,20 @@ module.exports = {
   add
 }
 
-function get() {
-
+function get(id) {
+  if (id) {
+    return db('projects')
+      .where({ id })
+      .first()
+  } else {
+    return db('projects')
+  }
 }
 
-function add() {
-
+function add(project) {
+  return db('projects')
+    .insert(project)
+    .then(ids => {
+      return get(ids[0])
+    })
 }
